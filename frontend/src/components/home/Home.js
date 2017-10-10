@@ -45,7 +45,7 @@ class Home extends Component {
                         <Grid.Row>
                             <Grid.Column width={4}>
                                 <Header as='h3'>Categories</Header>
-                                <PostCategories categories={categories}/>
+                                <PostCategories history={this.props.history} categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
                                 <Dropdown style={{float: 'right'}} text='Filter posts'>

@@ -8,11 +8,11 @@ import PostCategories from "../common/post-categories/PostCategories"
 
 class Posts extends Component {
 
-    state = {
-        currentCategory: ''
-    }
+    // componentDidUpdate() {
+    //     this.getFilteredPosts()
+    // }
 
-    componentDidMount() {
+    getFilteredPosts = () => {
         const currentCategory = this.props.match.params.category
         this.setState({
             currentCategory
@@ -23,6 +23,7 @@ class Posts extends Component {
     }
 
     render() {
+
         const {categories, filteredPosts} = this.props
 
         return (
@@ -33,7 +34,7 @@ class Posts extends Component {
                         <Grid.Row>
                             <Grid.Column width={4}>
                                 <Header as='h3'>Categories</Header>
-                                <PostCategories categories={categories}/>
+                                <PostCategories history={this.props.history} categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
                                 <Dropdown style={{float: 'right'}} text='Filter posts'>
