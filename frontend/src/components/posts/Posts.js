@@ -1,41 +1,29 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {Container, Grid, Header, Divider, Dropdown} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
-import * as HomeAPI from './HomeAPI'
-import {getCategories, getPosts} from "../../actions/index"
-import PostCategories from "../common/post-categories/PostCategories"
+import {filterPostsCategory} from "../../actions/index"
 import PostList from "../common/post-list/PostList"
+import PostCategories from "../common/post-categories/PostCategories"
 
-class Home extends Component {
+class Posts extends Component {
+
+    state = {
+        currentCategory: ''
+    }
 
     componentDidMount() {
-        this.handleGetCategories()
-        this.handleGetPosts()
-    }
-
-    handleGetCategories = () => {
-        HomeAPI.getCategories()
-            .then(res => {
-                if (res.status === 200) {
-                    const categories = res.data.categories
-                    this.props.dispatch(getCategories(categories))
-                }
-            })
-    }
-
-    handleGetPosts = () => {
-        HomeAPI.getPosts()
-            .then(res => {
-                if (res.status === 200) {
-                    const posts = res.data
-                    this.props.dispatch(getPosts(posts))
-                }
-            })
+        const currentCategory = this.props.match.params.category
+        this.setState({
+            currentCategory
+        },() => {
+            const posts = this.props.posts
+            this.props.dispatch(filterPostsCategory(posts,this.state.currentCategory))
+        })
     }
 
     render() {
-        const {categories, posts} = this.props
+        const {categories, filteredPosts} = this.props
 
         return (
             <div>
@@ -58,7 +46,7 @@ class Home extends Component {
                                     All posts
                                 </Header>
                                 <Divider/>
-                                <PostList posts={posts}/>
+                                <PostList posts={filteredPosts}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -68,9 +56,10 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = ({categories, posts}, props) => ({
+const mapStateToProps = ({ categories, posts, filteredPosts}) => ({
     categories,
-    posts
+    posts,
+    filteredPosts
 })
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Posts)
