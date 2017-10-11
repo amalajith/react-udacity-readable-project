@@ -19,6 +19,7 @@ class PostList extends Component {
                 <Item.Group>
                     {posts.map( post => (
                         <PostItem key={post.id}
+                                  id={post.id}
                                   category={post.category}
                                   title={post.title}
                                   author={post.author}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Container, Grid, Header, Divider} from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import {Container, Grid, Header, Divider, Button, Icon} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import PostList from "../common/post-list/PostList"
 import PostCategoryList from "../common/post-category-list/PostCategoryList"
@@ -24,8 +25,13 @@ class Posts extends Component {
                                 <PostCategoryList categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
+                                <Button as={Link} to='/'>
+                                    <Icon name='left chevron'/>
+                                    Back to all posts
+                                </Button>
+                                <Divider/>
                                 <Header as='h2'>
-                                    All posts
+                                    {category} posts
                                 </Header>
                                 <Divider/>
                                 <PostList posts={categoryPosts}/>

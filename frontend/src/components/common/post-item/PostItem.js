@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import { Item, Label, Button, Icon} from 'semantic-ui-react'
 
 export default class PostItem extends Component {
     render(){
 
-        const { category, author, title, body, voteScore } = this.props
+        const { id, category, author, title, body, voteScore } = this.props
 
         return(
             <Item>
@@ -25,7 +26,7 @@ export default class PostItem extends Component {
                             label={{as: 'a', basic: true, content: voteScore}}
                             labelPosition='right'
                         />
-                        <Button primary floated='right'>
+                        <Button as={Link} to={`/posts/${id}`} primary floated='right'>
                             See post
                             <Icon name='right chevron'/>
                         </Button>
@@ -37,6 +38,7 @@ export default class PostItem extends Component {
 }
 
 PostItem.propTypes = {
+    id: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,

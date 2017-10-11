@@ -3,6 +3,8 @@ export const GET_POSTS = 'GET_POSTS'
 export const SORT_POSTS_TIME = 'SORT_POSTS_TIME'
 export const SORT_POSTS_VOTESCORE = 'SORT_POSTS_VOTESCORE'
 
+export const GET_COMMENTS = 'GET_COMMENTS'
+
 export const getCategories = (categories) => {
     return {
         type: GET_CATEGORIES,
@@ -26,6 +28,13 @@ export const sortPostsByTime = () => {
 export const sortPostsByVote = () => {
     return {
         type: SORT_POSTS_VOTESCORE,
+    }
+}
+
+export const getComments = (comments) => {
+    return {
+        type: GET_COMMENTS,
+        comments
     }
 }
 
