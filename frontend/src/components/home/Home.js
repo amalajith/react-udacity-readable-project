@@ -76,10 +76,9 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = ({categories, posts, sort}, props) => ({
+const mapStateToProps = ({categories, posts}, props) => ({
     categories,
-    posts,
-    sort
+    posts
 })
 
 export default connect(mapStateToProps)(Home)

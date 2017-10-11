@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Item, Dropdown } from 'semantic-ui-react'
 import PostItem from "../post-item/PostItem"
 
-export default class PostList extends Component {
+class PostList extends Component {
 
     render(){
         const { posts } = this.props
@@ -11,8 +12,8 @@ export default class PostList extends Component {
             <div>
                 <Dropdown style={{float: 'right'}} text='Sort posts'>
                     <Dropdown.Menu>
-                        <Dropdown.Item text='Vote score' onClick={() => this.props.handleSortChange('vote')}/>
-                        <Dropdown.Item text='Post date' onClick={() => this.props.handleSortChange('time')}/>
+                        <Dropdown.Item text='Sort by vote order' active={this.props.sortType === 'vote'} onClick={() => this.props.handleSortChange('vote')}/>
+                        <Dropdown.Item text='Sort by time' active={this.props.sortType === 'time'} onClick={() => this.props.handleSortChange('time')}/>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Item.Group>
@@ -34,4 +35,10 @@ PostList.propTypes = {
     posts: PropTypes.array.isRequired,
     handleSortChange: PropTypes.func.isRequired
 }
+
+const mapStateToProps = ({ sortType }) => ({
+    sortType
+})
+
+export default connect(mapStateToProps)(PostList)
 
