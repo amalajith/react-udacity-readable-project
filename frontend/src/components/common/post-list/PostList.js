@@ -4,14 +4,15 @@ import { Item, Dropdown } from 'semantic-ui-react'
 import PostItem from "../post-item/PostItem"
 
 export default class PostList extends Component {
+
     render(){
         const { posts } = this.props
         return(
             <div>
-                <Dropdown style={{float: 'right'}} text='Filter posts'>
+                <Dropdown style={{float: 'right'}} text='Sort posts'>
                     <Dropdown.Menu>
-                        <Dropdown.Item text='Vote score'/>
-                        <Dropdown.Item text='Post date'/>
+                        <Dropdown.Item text='Vote score' onClick={() => this.props.handleSortChange('vote')}/>
+                        <Dropdown.Item text='Post date' onClick={() => this.props.handleSortChange('time')}/>
                     </Dropdown.Menu>
                 </Dropdown>
                 <Item.Group>
@@ -30,5 +31,7 @@ export default class PostList extends Component {
 }
 
 PostList.propTypes = {
-    posts: PropTypes.array.isRequired
+    posts: PropTypes.array.isRequired,
+    handleSortChange: PropTypes.func.isRequired
 }
+

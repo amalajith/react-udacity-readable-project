@@ -1,8 +1,7 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const GET_POSTS = 'GET_POSTS'
-export const FILTER_POSTS_CATEGORY = 'FILTER_POSTS_CATEGORY'
-export const FILTER_POSTS_VOTESCORE = 'FILTER_POSTS_VOTESCORE'
-export const FILTER_POSTS_TIME = 'FILTER_POSTS_TIME'
+export const SORT_POSTS_TIME = 'SORT_POSTS_TIME'
+export const SORT_POSTS_VOTESCORE = 'SORT_POSTS_VOTESCORE'
 
 export const getCategories = (categories) => {
     return {
@@ -18,24 +17,15 @@ export const getPosts = (posts) => {
     }
 }
 
-export const filterPostsCategory = (posts, category) => {
+export const sortPostsByTime = () => {
     return {
-        type: FILTER_POSTS_CATEGORY,
-        category,
-        posts
+        type: SORT_POSTS_TIME,
     }
 }
 
-export const filterPostsVotescore = (posts) => {
+export const sortPostsByVote = () => {
     return {
-        type: FILTER_POSTS_VOTESCORE,
-        posts
+        type: SORT_POSTS_VOTESCORE,
     }
 }
 
-export const filterPostsTime = (posts) => {
-    return {
-        type: FILTER_POSTS_TIME,
-        posts
-    }
-}

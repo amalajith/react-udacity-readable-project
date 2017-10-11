@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Container, Grid, Header, Divider, Dropdown} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import * as HomeAPI from './HomeAPI'
-import {getCategories, getPosts} from "../../actions/index"
+import {getCategories, getPosts, sortPostsByTime, sortPostsByVote} from "../../actions/index"
 import PostCategoryList from "../common/post-category-list/PostCategoryList"
 import PostList from "../common/post-list/PostList"
 
@@ -34,7 +34,21 @@ class Home extends Component {
             })
     }
 
+    handleSort = (sort) => {
+        switch(sort){
+            case 'time':
+                this.props.dispatch(sortPostsByTime())
+                break
+            case 'vote':
+                this.props.dispatch(sortPostsByVote())
+                break
+            default:
+
+        }
+    }
+
     render() {
+
         const {categories, posts} = this.props
 
         return (
@@ -52,7 +66,7 @@ class Home extends Component {
                                     All posts
                                 </Header>
                                 <Divider/>
-                                <PostList posts={posts}/>
+                                <PostList posts={posts} handleSortChange={this.handleSort}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -62,9 +76,10 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = ({categories, posts}, props) => ({
+const mapStateToProps = ({categories, posts, sort}, props) => ({
     categories,
-    posts
+    posts,
+    sort
 })
 
 export default connect(mapStateToProps)(Home)
