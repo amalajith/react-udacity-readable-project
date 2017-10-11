@@ -1,0 +1,14 @@
+import {GET_POSTS} from "../actions/index"
+
+const initialPostsState = []
+
+function posts(state = initialPostsState, action){
+    switch(action.type){
+        case GET_POSTS:
+            return action.posts
+        default:
+            return state
+    }
+}
+
+export default posts

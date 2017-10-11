@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Item } from 'semantic-ui-react'
+import { Item, Dropdown } from 'semantic-ui-react'
 import PostItem from "../post-item/PostItem"
 
 export default class PostList extends Component {
@@ -8,6 +8,12 @@ export default class PostList extends Component {
         const { posts } = this.props
         return(
             <div>
+                <Dropdown style={{float: 'right'}} text='Filter posts'>
+                    <Dropdown.Menu>
+                        <Dropdown.Item text='Vote score'/>
+                        <Dropdown.Item text='Post date'/>
+                    </Dropdown.Menu>
+                </Dropdown>
                 <Item.Group>
                     {posts.map( post => (
                         <PostItem key={post.id}

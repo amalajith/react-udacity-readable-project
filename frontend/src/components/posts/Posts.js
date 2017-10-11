@@ -1,30 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Container, Grid, Header, Divider, Dropdown} from 'semantic-ui-react'
+import {Container, Grid, Header, Divider} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
-import {filterPostsCategory} from "../../actions/index"
 import PostList from "../common/post-list/PostList"
-import PostCategories from "../common/post-categories/PostCategories"
+import PostCategoryList from "../common/post-category-list/PostCategoryList"
 
 class Posts extends Component {
 
-    // componentDidUpdate() {
-    //     this.getFilteredPosts()
-    // }
-
-    getFilteredPosts = () => {
-        const currentCategory = this.props.match.params.category
-        this.setState({
-            currentCategory
-        },() => {
-            const posts = this.props.posts
-            this.props.dispatch(filterPostsCategory(posts,this.state.currentCategory))
-        })
-    }
-
     render() {
 
-        const {categories, filteredPosts} = this.props
+        const {categories, posts} = this.props
+        const category = this.props.match.params.category
+        const categoryPosts = posts.filter(post => post.category === category)
 
         return (
             <div>
@@ -34,20 +21,14 @@ class Posts extends Component {
                         <Grid.Row>
                             <Grid.Column width={4}>
                                 <Header as='h3'>Categories</Header>
-                                <PostCategories history={this.props.history} categories={categories}/>
+                                <PostCategoryList categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
-                                <Dropdown style={{float: 'right'}} text='Filter posts'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item text='Vote score'/>
-                                        <Dropdown.Item text='Post date'/>
-                                    </Dropdown.Menu>
-                                </Dropdown>
                                 <Header as='h2'>
                                     All posts
                                 </Header>
                                 <Divider/>
-                                <PostList posts={filteredPosts}/>
+                                <PostList posts={categoryPosts}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -57,10 +38,9 @@ class Posts extends Component {
     }
 }
 
-const mapStateToProps = ({ categories, posts, filteredPosts}) => ({
+const mapStateToProps = ({ categories, posts}) => ({
     categories,
     posts,
-    filteredPosts
 })
 
 export default connect(mapStateToProps)(Posts)

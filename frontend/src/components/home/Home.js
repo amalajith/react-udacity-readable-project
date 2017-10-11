@@ -4,7 +4,7 @@ import {Container, Grid, Header, Divider, Dropdown} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import * as HomeAPI from './HomeAPI'
 import {getCategories, getPosts} from "../../actions/index"
-import PostCategories from "../common/post-categories/PostCategories"
+import PostCategoryList from "../common/post-category-list/PostCategoryList"
 import PostList from "../common/post-list/PostList"
 
 class Home extends Component {
@@ -45,15 +45,9 @@ class Home extends Component {
                         <Grid.Row>
                             <Grid.Column width={4}>
                                 <Header as='h3'>Categories</Header>
-                                <PostCategories history={this.props.history} categories={categories}/>
+                                <PostCategoryList categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
-                                <Dropdown style={{float: 'right'}} text='Filter posts'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item text='Vote score'/>
-                                        <Dropdown.Item text='Post date'/>
-                                    </Dropdown.Menu>
-                                </Dropdown>
                                 <Header as='h2'>
                                     All posts
                                 </Header>
