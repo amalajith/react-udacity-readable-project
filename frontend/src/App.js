@@ -19,7 +19,7 @@ class App extends Component {
               <Route path='/edit-post/:postId' component={PostEdit}  />
           </Switch>
       </div>
-    );
+    )
   }
 }
 

@@ -20,7 +20,7 @@ class PostDetail extends Component {
         postDeleteSuccessModal: {
             open: false,
             title: 'Post deleted',
-            body: 'This post has been deleted'
+            body: 'This post has been deleted. You will be redirected to the homepage'
         }
     }
 
@@ -92,6 +92,9 @@ class PostDetail extends Component {
                 const post = res.data
                 this.props.dispatch(postDeleteSuccess(post))
                 this.handlePostDeleteSuccessModalOpen()
+                setTimeout(() => {
+                    this.props.history.push('/')
+                },1000)
             })
     }
 

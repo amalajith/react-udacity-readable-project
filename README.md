@@ -1,12 +1,20 @@
-# Readable API Server
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+# Udacity Project Readable
 
+Project files for Udacity redux accessment project.
+
+## Installation instructions
+
+As a prerequisite, you will need to have Nodejs and npm installed.
+Clone the GiHub repository and use npm to install the dependencies.
+
+`https://github.com/amalajith/react-udacity-my-reads-project.git`
+
+Project files are divided into the two folders
+   - `api-server`
+   - `frontend`
+ 
 This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
-
-## Start Developing
-
-To get started developing right away:
 
 * Install and start the API server
     - `cd api-server`
@@ -16,6 +24,35 @@ To get started developing right away:
     - `create-react-app frontend`
     - `cd frontend`
     - `npm start`
+    
+# Frontend
+
+All the project files are in `src` folder. 
+
+The directory structure inside `src` folder is 
+
+```
+src/
+    actions -> All the action constants and action creator are here.
+    components -> (Has all the individual components)
+        common  -> (Reusable components like post-item, post-form, post-detail etc)
+        home -> (Landing page, this show all the posts and categories without filter)
+        post-create  -> (Page for creating a new post /create-post)
+        post-detail  -> (Post view detail /posts/:postId)
+        post-edit -> Edit form editing a post /edit-post/:postId
+        posts -> Listing of the posts based on the category /:category/posts
+    reducers -> All the redux reducers
+    utils -> Api paths and base urls
+    App.css
+    App.js - Has all the routes using react-router-dom
+    App.test.js
+    index.css
+    index.js
+    logo.svg
+```
+
+### Layouts
+Have used React semantic UI for layouts and UI
 
 ## API Server
 

@@ -10,25 +10,33 @@ class PostList extends Component {
         const { posts } = this.props
         return(
             <div>
-                <Dropdown style={{float: 'right'}} text='Sort posts'>
-                    <Dropdown.Menu>
-                        <Dropdown.Item text='Sort by vote order' active={this.props.sortType === 'vote'} onClick={() => this.props.handleSortChange('vote')}/>
-                        <Dropdown.Item text='Sort by time' active={this.props.sortType === 'time'} onClick={() => this.props.handleSortChange('time')}/>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Item.Group divided relaxed>
-                    {posts.map( post => (
-                        <PostItem key={post.id}
-                                  id={post.id}
-                                  category={post.category}
-                                  title={post.title}
-                                  author={post.author}
-                                  body={post.body}
-                                  voteScore={post.voteScore}
-                                  timestamp={post.timestamp}
-                        />
-                    ))}
-                </Item.Group>
+                {posts.length > 0 ? (
+                    <div>
+                        <Dropdown style={{float: 'right'}} text='Sort posts'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item text='Sort by vote order' active={this.props.sortType === 'vote'} onClick={() => this.props.handleSortChange('vote')}/>
+                                <Dropdown.Item text='Sort by time' active={this.props.sortType === 'time'} onClick={() => this.props.handleSortChange('time')}/>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Item.Group divided relaxed>
+                            {posts.map( post => (
+                                <PostItem key={post.id}
+                                          id={post.id}
+                                          category={post.category}
+                                          title={post.title}
+                                          author={post.author}
+                                          body={post.body}
+                                          voteScore={post.voteScore}
+                                          timestamp={post.timestamp}
+                                />
+                            ))}
+                        </Item.Group>
+                    </div>
+                ): (
+                    <p>
+                        No posts to show here.
+                    </p>
+                )}
             </div>
         )
     }
