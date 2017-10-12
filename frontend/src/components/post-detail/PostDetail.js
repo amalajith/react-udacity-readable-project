@@ -92,9 +92,6 @@ class PostDetail extends Component {
                 const post = res.data
                 this.props.dispatch(postDeleteSuccess(post))
                 this.handlePostDeleteSuccessModalOpen()
-                setTimeout(() => {
-                    this.props.history.push('/')
-                },1000)
             })
     }
 
@@ -118,8 +115,8 @@ class PostDetail extends Component {
 
     render(){
         const postId = this.props.match.params.postId
-        const { posts, comments } = this.props
-        const post = posts.filter(post => post.id === postId)[0]
+        const { posts } = this.props
+        const post = posts.filter(post => (post.id === postId && !post.deleted))[0]
         const { body, author } = this.state.comment
         const { postDeleteSuccessModal } = this.state
 
