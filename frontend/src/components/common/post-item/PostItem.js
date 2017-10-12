@@ -12,11 +12,10 @@ export default class PostItem extends Component {
         return(
             <Item>
                 <Item.Content>
-                    <Label>{category}</Label>
                     <Item.Header as='a'>
                         {title}
                     </Item.Header>
-                    <Item.Meta>By {author} on {moment(timestamp).format("DD-MM-YYYY h:mm:ss")}</Item.Meta>
+                    <Item.Meta>By {author} on {moment(timestamp).format("DD-MM-YYYY h:mm:ss")} in <Label>{category}</Label></Item.Meta>
                     <Item.Description>
                         {body}
                     </Item.Description>

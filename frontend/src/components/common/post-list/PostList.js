@@ -16,7 +16,7 @@ class PostList extends Component {
                         <Dropdown.Item text='Sort by time' active={this.props.sortType === 'time'} onClick={() => this.props.handleSortChange('time')}/>
                     </Dropdown.Menu>
                 </Dropdown>
-                <Item.Group>
+                <Item.Group divided relaxed>
                     {posts.map( post => (
                         <PostItem key={post.id}
                                   id={post.id}

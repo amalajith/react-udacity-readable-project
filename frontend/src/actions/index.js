@@ -1,4 +1,6 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+
+export const POST_CREATE_SUCCESS = 'POST_CREATE_SUCCESS'
 export const GET_POSTS = 'GET_POSTS'
 export const SORT_POSTS_TIME = 'SORT_POSTS_TIME'
 export const SORT_POSTS_VOTESCORE = 'SORT_POSTS_VOTESCORE'
@@ -10,6 +12,13 @@ export const getCategories = (categories) => {
     return {
         type: GET_CATEGORIES,
         categories
+    }
+}
+
+export const postCreateSuccess = (post) => {
+    return {
+        type: POST_CREATE_SUCCESS,
+        post
     }
 }
 

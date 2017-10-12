@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Item, Label, Button, Icon, Divider} from 'semantic-ui-react'
+import { Item, Button, Divider} from 'semantic-ui-react'
 
 export default class PostItemDetail extends Component {
     render(){

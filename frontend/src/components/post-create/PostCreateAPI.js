@@ -5,7 +5,7 @@ import {POST_POSTS_API} from "../../utils/index"
 export const createPost = (title, body, author, category) => {
     return axios.post(POST_POSTS_API, {
         id: v4(),
-        timestamp: Math.floor(Date.now() /1000),
+        timestamp: Math.floor(Date.now()),
         title,
         body,
         author,
