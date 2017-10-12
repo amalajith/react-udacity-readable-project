@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
+import * as moment from 'moment'
 import { Item, Label, Button, Icon} from 'semantic-ui-react'
 
 export default class PostItem extends Component {
     render(){
 
-        const { id, category, author, title, body, voteScore } = this.props
+        const { id, category, author, title, body, voteScore, timestamp } = this.props
 
         return(
             <Item>
@@ -15,7 +16,7 @@ export default class PostItem extends Component {
                     <Item.Header as='a'>
                         {title}
                     </Item.Header>
-                    <Item.Meta>By {author}</Item.Meta>
+                    <Item.Meta>By {author} on {moment(timestamp).format("DD-MM-YYYY h:mm:ss")}</Item.Meta>
                     <Item.Description>
                         {body}
                     </Item.Description>
@@ -43,5 +44,6 @@ PostItem.propTypes = {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
-    voteScore: PropTypes.number.isRequired
+    voteScore: PropTypes.number.isRequired,
+    timestamp: PropTypes.number.isRequired
 }

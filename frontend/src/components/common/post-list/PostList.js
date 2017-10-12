@@ -24,7 +24,9 @@ class PostList extends Component {
                                   title={post.title}
                                   author={post.author}
                                   body={post.body}
-                                  voteScore={post.voteScore}/>
+                                  voteScore={post.voteScore}
+                                  timestamp={post.timestamp}
+                        />
                     ))}
                 </Item.Group>
             </div>

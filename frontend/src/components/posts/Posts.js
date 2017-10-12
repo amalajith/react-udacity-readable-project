@@ -32,6 +32,10 @@ class Posts extends Component {
                                 <Divider/>
                                 <Header as='h2'>
                                     {category} posts
+                                    <Button floated='right' as={Link} to='/create-post'>
+                                        New post
+                                        <Icon name='right chevron'/>
+                                    </Button>
                                 </Header>
                                 <Divider/>
                                 <PostList posts={categoryPosts}/>

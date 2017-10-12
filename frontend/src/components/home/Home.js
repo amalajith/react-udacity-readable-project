@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
-import {Container, Grid, Header, Divider, Dropdown} from 'semantic-ui-react'
+import {Container, Grid, Header, Divider,Button,Icon} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import * as HomeAPI from './HomeAPI'
 import {getCategories, getPosts, sortPostsByTime, sortPostsByVote} from "../../actions/index"
@@ -64,6 +65,10 @@ class Home extends Component {
                             <Grid.Column width={8}>
                                 <Header as='h2'>
                                     All posts
+                                    <Button floated='right' as={Link} to='/create-post'>
+                                        New post
+                                        <Icon name='right chevron'/>
+                                    </Button>
                                 </Header>
                                 <Divider/>
                                 <PostList posts={posts} handleSortChange={this.handleSort}/>

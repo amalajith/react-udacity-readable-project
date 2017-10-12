@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Grid, Form, Button, TextArea, Divider, Input } from 'semantic-ui-react'
+import { Container, Grid , Button, Icon, Divider } from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import PostItemDetail from "../common/post-item-detail/PostItemDetail"
 import * as PostDetailAPI from './PostDetailAPI'
 import {addComment, getComments} from "../../actions/index"
 import CommentForm from "../common/comment-form/CommentForm"
 import CommentItem from "../common/comment-item/CommentItem"
+import CommentList from "../common/comment-list/CommentList"
 
 class PostDetail extends Component {
 
@@ -74,6 +75,12 @@ class PostDetail extends Component {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={9}>
+
+                                        <Button as={Link} to='/'>
+                                            <Icon name='left chevron'/>
+                                            Back to all posts
+                                        </Button>
+
                                         <PostItemDetail id={post.id}
                                                         category={post.category}
                                                         title={post.title}
@@ -82,10 +89,7 @@ class PostDetail extends Component {
                                                         voteScore={post.voteScore}
                                         />
                                         <Divider/>
-                                        <h3>Comments</h3>
-                                        {comments.map(comment => (
-                                            <CommentItem key={comment.id} body={comment.body} author={comment.author}/>
-                                        ))}
+                                        <CommentList comments={comments}/>
                                         <Divider/>
                                         <CommentForm body={body}
                                                      author={author}
