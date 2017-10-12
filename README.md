@@ -8,7 +8,7 @@ Project files for Udacity redux accessment project.
 As a prerequisite, you will need to have Nodejs and npm installed.
 Clone the GiHub repository and use npm to install the dependencies.
 
-`https://github.com/amalajith/react-udacity-my-reads-project.git`
+`git@github.com:amalajith/react-udacity-readable-project.git`
 
 Project files are divided into the two folders
    - `api-server`
