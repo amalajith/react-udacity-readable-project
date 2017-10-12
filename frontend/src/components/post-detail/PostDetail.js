@@ -5,9 +5,8 @@ import { Container, Grid , Button, Icon, Divider } from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import PostItemDetail from "../common/post-item-detail/PostItemDetail"
 import * as PostDetailAPI from './PostDetailAPI'
-import {addComment, getComments} from "../../actions/index"
+import {addComment, getComments, postDownVoteSuccess, postUpVoteSuccess} from "../../actions/index"
 import CommentForm from "../common/comment-form/CommentForm"
-import CommentItem from "../common/comment-item/CommentItem"
 import CommentList from "../common/comment-list/CommentList"
 
 class PostDetail extends Component {
@@ -58,6 +57,28 @@ class PostDetail extends Component {
             })
     }
 
+    handleUpVote = () => {
+        const postId = this.props.match.params.postId
+        PostDetailAPI.upVotePost(postId)
+            .then(res => {
+                if(res.status === 200){
+                    const post = res.data
+                    this.props.dispatch(postUpVoteSuccess(post))
+                }
+            })
+    }
+
+    handleDownVote = () => {
+        const postId = this.props.match.params.postId
+        PostDetailAPI.downVotePost(postId)
+            .then(res => {
+                if(res.status === 200){
+                    const post = res.data
+                    this.props.dispatch(postDownVoteSuccess(post))
+                }
+            })
+    }
+
     render(){
         const postId = this.props.match.params.postId
         const { posts, comments } = this.props
@@ -72,14 +93,15 @@ class PostDetail extends Component {
                     <div>
                         <PageHeader/>
                         <Container>
+                            <Button basic as={Link} to='/'>
+                                <Icon name='left chevron'/>
+                                Back to all posts
+                            </Button>
+
+                            <Divider/>
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={9}>
-
-                                        <Button as={Link} to='/'>
-                                            <Icon name='left chevron'/>
-                                            Back to all posts
-                                        </Button>
 
                                         <PostItemDetail id={post.id}
                                                         category={post.category}
@@ -87,7 +109,11 @@ class PostDetail extends Component {
                                                         author={post.author}
                                                         body={post.body}
                                                         voteScore={post.voteScore}
+                                                        onUpVote={this.handleUpVote}
+                                                        onDownVote={this.handleDownVote}
+                                                        timestamp={post.timestamp}
                                         />
+
                                         <Divider/>
                                         <CommentList comments={comments}/>
                                         <Divider/>

@@ -18,6 +18,11 @@ class Posts extends Component {
             <div>
                 <PageHeader/>
                 <Container>
+                    <Button basic as={Link} to='/'>
+                        <Icon name='left chevron'/>
+                        Back to all posts
+                    </Button>
+                    <Divider/>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column width={4}>
@@ -25,11 +30,6 @@ class Posts extends Component {
                                 <PostCategoryList categories={categories}/>
                             </Grid.Column>
                             <Grid.Column width={8}>
-                                <Button as={Link} to='/'>
-                                    <Icon name='left chevron'/>
-                                    Back to all posts
-                                </Button>
-                                <Divider/>
                                 <Header as='h2'>
                                     {category} posts
                                     <Button floated='right' as={Link} to='/create-post'>

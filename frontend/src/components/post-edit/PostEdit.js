@@ -1,31 +1,45 @@
 import React, {Component} from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import { Container, Grid, Button, Icon, Divider } from 'semantic-ui-react'
+import {Container, Grid, Button, Icon, Divider} from 'semantic-ui-react'
 import PostForm from "../common/post-form/PostForm"
 import PageHeader from '../common/page-header/PageHeader'
-import * as PostCreateAPI from './PostCreateAPI'
-import {postCreateSuccess} from "../../actions/index"
+import * as PostEditAPI from './PostEditAPI'
+import {postEditSuccess} from "../../actions/index"
 import ModalSuccess from "../common/modal-success/ModalSuccess"
 
-class PostCreate extends Component {
+class PostEdit extends Component {
 
     state = {
         post: {
+            id: '',
             title: '',
             body: '',
-            author: '',
-            category: ''
         },
-        postCreateSuccessModal: {
+        postEditSuccessModal: {
             open: false,
-            title: 'Post created',
-            body: 'Post has been successfully created'
+            title: 'Post edited',
+            body: 'Post has been successfully edited'
+        }
+    }
+
+    componentDidMount() {
+        const postId = this.props.match.params.postId
+        const post = this.props.posts.filter(post => post.id === postId)[0]
+        if (post) {
+            this.setState({
+                post: {
+                    ...this.state.post,
+                    id: post.id,
+                    title: post.title,
+                    body: post.body,
+                }
+            })
         }
     }
 
     handleInputChange = (e, data) => {
-        const value  = data.value;
+        const value = data.value;
         const name = data.name;
         this.setState({
             post: {
@@ -35,44 +49,34 @@ class PostCreate extends Component {
         })
     }
 
-    handleCategorySelect = (e,data) => {
-        const value = data.value
-        this.setState({
-            post: {
-                ...this.state.post,
-                category: value
-            }
-        })
-    }
-
     handlePostSubmit = () => {
-        const { title, body, author, category} = this.state.post
-        if(!title || !body || !author || !category){
+        const {id, title, body} = this.state.post
+        if (!title || !body ) {
             return
         }
-        PostCreateAPI.createPost(title,body,author, category)
+        PostEditAPI.editPost(id, title, body)
             .then(res => {
-                if(res.status === 200){
+                if (res.status === 200) {
                     const post = res.data
-                    this.props.dispatch(postCreateSuccess(post))
-                    this.handlePostCreateSuccessModalOpen()
+                    this.props.dispatch(postEditSuccess(post))
+                    this.handlePostEditSuccessModalOpen()
                 }
             })
     }
 
-    handlePostCreateSuccessModalOpen = () => {
+    handlePostEditSuccessModalOpen = () => {
         this.setState({
-            postCreateSuccessModal: {
-                ...this.state.postCreateSuccessModal,
+            postEditSuccessModal: {
+                ...this.state.postEditSuccessModal,
                 open: true
             }
         })
     }
 
-    handlePostCreateSuccessModalClose = () => {
+    handlePostEditSuccessModalClose = () => {
         this.setState({
-            postCreateSuccessModal: {
-                ...this.state.postCreateSuccessModal,
+            postEditSuccessModal: {
+                ...this.state.postEditSuccessModal,
                 open: false
             }
         })
@@ -80,8 +84,8 @@ class PostCreate extends Component {
 
     render() {
         const {categories} = this.props
-        const { title, body, author, category} = this.state.post
-        const { postCreateSuccessModal } = this.state
+        const {title, body} = this.state.post
+        const {postEditSuccessModal} = this.state
         return (
             <div>
                 {categories.length === 0 ? (
@@ -89,10 +93,10 @@ class PostCreate extends Component {
                 ) : (
                     <div>
                         <PageHeader/>
-                        <ModalSuccess open={postCreateSuccessModal.open}
-                                      title={postCreateSuccessModal.title}
-                                      body={postCreateSuccessModal.body}
-                                      onClose={this.handlePostCreateSuccessModalClose}
+                        <ModalSuccess open={postEditSuccessModal.open}
+                                      title={postEditSuccessModal.title}
+                                      body={postEditSuccessModal.body}
+                                      onClose={this.handlePostEditSuccessModalClose}
                         />
                         <Container>
 
@@ -104,17 +108,15 @@ class PostCreate extends Component {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={9}>
-                                        <h1>Add a new post</h1>
+                                        <h1>Edit post</h1>
                                         <p>All fields are mandatory</p>
                                         <Divider/>
                                         <PostForm body={body}
                                                   title={title}
-                                                  author={author}
                                                   onInputChange={this.handleInputChange}
                                                   onPostSubmit={this.handlePostSubmit}
                                                   categories={categories}
-                                                  category={category}
-                                                  onCategorySelect={this.handleCategorySelect}
+                                                  isEdit={true}
                                         />
                                     </Grid.Column>
                                 </Grid.Row>
@@ -132,4 +134,4 @@ const mapStateToProps = ({categories, posts}) => ({
     posts
 })
 
-export default connect(mapStateToProps)(PostCreate)
+export default connect(mapStateToProps)(PostEdit)
