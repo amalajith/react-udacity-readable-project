@@ -9,6 +9,8 @@ export const POST_DOWN_VOTE_SUCCESS = 'POST_DOWN_VOTE_SUCCESS'
 export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT  = 'ADD_COMMENT'
+export const COMMENT_EDIT_SUCCESS = 'COMMENT_EDIT_SUCCESS'
+export const COMMENT_DELETE_SUCCESS = 'COMMENT_DELETE_SUCCESS'
 
 export const getCategories = (categories) => {
     return {
@@ -81,6 +83,20 @@ export const getComments = (comments) => {
 export const addComment = (comment) => {
     return {
         type: ADD_COMMENT,
+        comment
+    }
+}
+
+export const commentEditSuccess = (comment) => {
+    return {
+        type: COMMENT_EDIT_SUCCESS,
+        comment
+    }
+}
+
+export const commentDeleteSuccess = (comment) => {
+    return {
+        type: COMMENT_DELETE_SUCCESS,
         comment
     }
 }

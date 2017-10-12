@@ -1,4 +1,4 @@
-import {ADD_COMMENT, GET_COMMENTS} from "../actions/index"
+import {ADD_COMMENT, COMMENT_DELETE_SUCCESS, COMMENT_EDIT_SUCCESS, GET_COMMENTS} from "../actions/index"
 
 const initialCommentsState = []
 
@@ -11,6 +11,12 @@ function comments(state = initialCommentsState, action){
                 ...state,
                 action.comment
             ]
+        case COMMENT_DELETE_SUCCESS:
+            const deletedComment = action.comment
+            return state.map(comment => comment.id === deletedComment.id ? deletedComment : comment)
+        case COMMENT_EDIT_SUCCESS:
+            const editedComment = action.comment
+            return state.map(comment => comment.id === editedComment.id ? editedComment : comment)
         default:
             return state
     }

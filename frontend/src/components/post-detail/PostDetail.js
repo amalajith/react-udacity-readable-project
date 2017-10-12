@@ -159,7 +159,7 @@ class PostDetail extends Component {
 
                                         <Divider/>
 
-                                        <CommentList comments={comments}/>
+                                        <CommentList/>
 
                                         <Divider/>
 
