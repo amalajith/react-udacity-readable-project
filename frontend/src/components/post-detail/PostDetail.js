@@ -5,7 +5,9 @@ import { Container, Grid, Form, Button, TextArea, Divider, Input } from 'semanti
 import PageHeader from '../common/page-header/PageHeader'
 import PostItemDetail from "../common/post-item-detail/PostItemDetail"
 import * as PostDetailAPI from './PostDetailAPI'
-import {getComments} from "../../actions/index"
+import {addComment, getComments} from "../../actions/index"
+import CommentForm from "../common/comment-form/CommentForm"
+import CommentItem from "../common/comment-item/CommentItem"
 
 class PostDetail extends Component {
 
@@ -32,6 +34,7 @@ class PostDetail extends Component {
         const value = data.value;
         this.setState({
             comment: {
+                ...this.state.comment,
                 [name] : value
             }
         })
@@ -41,12 +44,24 @@ class PostDetail extends Component {
         const postId = this.props.match.params.postId
         const { body, author } = this.state.comment
         PostDetailAPI.addComment(postId, body, author)
-            .then(res => console.log(res))
+            .then(res => {
+                if(res.status === 200){
+                    const comment  = res.data
+                    this.props.dispatch(addComment(comment))
+                    this.setState({
+                        comment: {
+                            body: '', author: ''
+                        }
+                    })
+                }
+            })
     }
 
     render(){
         const postId = this.props.match.params.postId
-        const post = this.props.posts.filter(post => post.id === postId)[0]
+        const { posts, comments } = this.props
+        const post = posts.filter(post => post.id === postId)[0]
+        const { body, author } = this.state.comment
 
         return(
             <div>
@@ -67,19 +82,17 @@ class PostDetail extends Component {
                                                         voteScore={post.voteScore}
                                         />
                                         <Divider/>
+                                        <h3>Comments</h3>
+                                        {comments.map(comment => (
+                                            <CommentItem key={comment.id} body={comment.body} author={comment.author}/>
+                                        ))}
+                                        <Divider/>
+                                        <CommentForm body={body}
+                                                     author={author}
+                                                     onInputChange={this.handleInputChange}
+                                                     onCommentSubmit={this.handleCommentSubmit}/>
 
 
-
-                                        <Form>
-                                            <Form.Field>
-                                                <p>Add comment</p>
-                                                <TextArea placeholder='Comment body' name='body' onChange={this.handleInputChange}/>
-                                            </Form.Field>
-                                            <Form.Field>
-                                                <Input placeholder='Author' name='author' onChange={this.handleInputChange} />
-                                            </Form.Field>
-                                            <Button floated='right' onClick={this.handleCommentSubmit}>Add comment</Button>
-                                        </Form>
                                     </Grid.Column>
                                 </Grid.Row>
 
