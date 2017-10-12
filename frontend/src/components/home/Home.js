@@ -52,6 +52,8 @@ class Home extends Component {
 
         const {categories, posts} = this.props
 
+        const visiblePosts = posts.filter(post => !post.deleted)
+
         return (
             <div>
                 <PageHeader/>
@@ -71,7 +73,7 @@ class Home extends Component {
                                     </Button>
                                 </Header>
                                 <Divider/>
-                                <PostList posts={posts} handleSortChange={this.handleSort}/>
+                                <PostList posts={visiblePosts} handleSortChange={this.handleSort}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

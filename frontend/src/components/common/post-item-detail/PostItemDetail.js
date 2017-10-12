@@ -33,6 +33,11 @@ export default class PostItemDetail extends Component {
                                 Edit
                             </Button>
 
+                            <Button floated='right'
+                                    icon='trash'
+                                    onClick={this.props.onDeletePost}
+                            />
+
                             <Button negative
                                     floated='right'
                                     circular
@@ -46,6 +51,7 @@ export default class PostItemDetail extends Component {
                                     icon='like outline'
                                     onClick={this.props.onUpVote}
                             />
+
 
                         </Item.Extra>
                     </Item.Content>
@@ -64,6 +70,7 @@ PostItemDetail.propTypes = {
     author: PropTypes.string.isRequired,
     voteScore: PropTypes.number.isRequired,
     onUpVote: PropTypes.func.isRequired,
-    onDownVote: PropTypes.func.isRequired
+    onDownVote: PropTypes.func.isRequired,
+    onDeletePost: PropTypes.func.isRequired
 }
 

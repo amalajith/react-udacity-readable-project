@@ -29,5 +29,5 @@ export const downVotePost = (postId) => {
 }
 
 export const deletePost = (postId) => {
-
+    return axios.delete(`${BASE_URL}/posts/${postId}`)
 }

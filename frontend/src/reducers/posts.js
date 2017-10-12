@@ -1,5 +1,6 @@
 import {
-    GET_POSTS, POST_CREATE_SUCCESS, POST_DOWN_VOTE_SUCCESS, POST_EDIT_SUCCESS, POST_UP_VOTE_SUCCESS, SORT_POSTS_TIME,
+    GET_POSTS, POST_CREATE_SUCCESS, POST_DELETE_SUCCESS, POST_DOWN_VOTE_SUCCESS, POST_EDIT_SUCCESS,
+    POST_UP_VOTE_SUCCESS, SORT_POSTS_TIME,
     SORT_POSTS_VOTESCORE
 } from "../actions/index"
 
@@ -27,6 +28,9 @@ function posts(state = initialPostsState, action){
         case POST_EDIT_SUCCESS:
             const editedPost = action.post
             return state.map(post => post.id === editedPost.id ? editedPost : post)
+        case POST_DELETE_SUCCESS:
+            const deletedPost = action.post
+            return state.map(post => post.id === deletedPost.id ? deletedPost : post)
         default:
             return state
     }

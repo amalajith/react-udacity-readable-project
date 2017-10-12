@@ -5,8 +5,22 @@ import {Container, Grid, Header, Divider, Button, Icon} from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import PostList from "../common/post-list/PostList"
 import PostCategoryList from "../common/post-category-list/PostCategoryList"
+import {sortPostsByTime, sortPostsByVote} from "../../actions/index"
 
 class Posts extends Component {
+
+    handleSort = (sort) => {
+        switch(sort){
+            case 'time':
+                this.props.dispatch(sortPostsByTime())
+                break
+            case 'vote':
+                this.props.dispatch(sortPostsByVote())
+                break
+            default:
+
+        }
+    }
 
     render() {
 
@@ -38,7 +52,7 @@ class Posts extends Component {
                                     </Button>
                                 </Header>
                                 <Divider/>
-                                <PostList posts={categoryPosts}/>
+                                <PostList posts={categoryPosts} handleSortChange={this.handleSort}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

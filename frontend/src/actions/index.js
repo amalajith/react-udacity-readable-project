@@ -6,6 +6,7 @@ export const SORT_POSTS_TIME = 'SORT_POSTS_TIME'
 export const SORT_POSTS_VOTESCORE = 'SORT_POSTS_VOTESCORE'
 export const POST_UP_VOTE_SUCCESS = 'POST_UP_VOTE_SUCCESS'
 export const POST_DOWN_VOTE_SUCCESS = 'POST_DOWN_VOTE_SUCCESS'
+export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT  = 'ADD_COMMENT'
 
@@ -59,6 +60,13 @@ export const postUpVoteSuccess = (post) => {
 export const postDownVoteSuccess = (post) => {
     return {
         type: POST_DOWN_VOTE_SUCCESS,
+        post
+    }
+}
+
+export const postDeleteSuccess = (post) => {
+    return {
+        type: POST_DELETE_SUCCESS,
         post
     }
 }

@@ -5,9 +5,10 @@ import { Container, Grid , Button, Icon, Divider } from 'semantic-ui-react'
 import PageHeader from '../common/page-header/PageHeader'
 import PostItemDetail from "../common/post-item-detail/PostItemDetail"
 import * as PostDetailAPI from './PostDetailAPI'
-import {addComment, getComments, postDownVoteSuccess, postUpVoteSuccess} from "../../actions/index"
+import {addComment, getComments, postDeleteSuccess, postDownVoteSuccess, postUpVoteSuccess} from "../../actions/index"
 import CommentForm from "../common/comment-form/CommentForm"
 import CommentList from "../common/comment-list/CommentList"
+import ModalSuccess from "../common/modal-success/ModalSuccess"
 
 class PostDetail extends Component {
 
@@ -15,6 +16,11 @@ class PostDetail extends Component {
         comment: {
             body: '',
             author: '',
+        },
+        postDeleteSuccessModal: {
+            open: false,
+            title: 'Post deleted',
+            body: 'This post has been deleted'
         }
     }
 
@@ -79,11 +85,40 @@ class PostDetail extends Component {
             })
     }
 
+    handleDeletePost = () => {
+        const postId = this.props.match.params.postId
+        PostDetailAPI.deletePost(postId)
+            .then(res => {
+                const post = res.data
+                this.props.dispatch(postDeleteSuccess(post))
+                this.handlePostDeleteSuccessModalOpen()
+            })
+    }
+
+    handlePostDeleteSuccessModalOpen = () => {
+        this.setState({
+            postDeleteSuccessModal:{
+                ...this.state.postDeleteSuccessModal,
+                open: true
+            }
+        })
+    }
+
+    handlePostDeleteSuccessModalClose = () => {
+        this.setState({
+            postDeleteSuccessModal:{
+                ...this.state.postDeleteSuccessModal,
+                open: false
+            }
+        })
+    }
+
     render(){
         const postId = this.props.match.params.postId
         const { posts, comments } = this.props
         const post = posts.filter(post => post.id === postId)[0]
         const { body, author } = this.state.comment
+        const { postDeleteSuccessModal } = this.state
 
         return(
             <div>
@@ -93,6 +128,13 @@ class PostDetail extends Component {
                     <div>
                         <PageHeader/>
                         <Container>
+
+                            <ModalSuccess open={postDeleteSuccessModal.open}
+                                          title={postDeleteSuccessModal.title}
+                                          body={postDeleteSuccessModal.body}
+                                          onClose={this.handlePostDeleteSuccessModalClose}
+                            />
+
                             <Button basic as={Link} to='/'>
                                 <Icon name='left chevron'/>
                                 Back to all posts
@@ -109,14 +151,18 @@ class PostDetail extends Component {
                                                         author={post.author}
                                                         body={post.body}
                                                         voteScore={post.voteScore}
+                                                        timestamp={post.timestamp}
                                                         onUpVote={this.handleUpVote}
                                                         onDownVote={this.handleDownVote}
-                                                        timestamp={post.timestamp}
+                                                        onDeletePost={this.handleDeletePost}
                                         />
 
                                         <Divider/>
+
                                         <CommentList comments={comments}/>
+
                                         <Divider/>
+
                                         <CommentForm body={body}
                                                      author={author}
                                                      onInputChange={this.handleInputChange}
