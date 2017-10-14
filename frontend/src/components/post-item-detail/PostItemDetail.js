@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 export default class PostItemDetail extends Component {
     render(){
-        const { id, category, author, title, body, voteScore, timestamp } = this.props
+        const { id, category, author, title, body, voteScore, timestamp, commentsCount } = this.props
 
         return(
             <div>
@@ -21,19 +21,30 @@ export default class PostItemDetail extends Component {
                             {body}
                         </Item.Description>
                         <Divider />
+
                         <Item.Extra>
                             <Button
+                                floated='left'
                                 content='Vote'
                                 icon='heart'
                                 label={{as: 'a', basic: true, content: voteScore}}
                                 labelPosition='right'
                             />
+                            <Button
+                                floated='right'
+                                content='Comments'
+                                icon='comments'
+                                label={{as: 'a', basic: true, content: commentsCount}}
+                                labelPosition='right'
+                            />
+                        </Item.Extra>
 
+                        <Item.Extra>
                             <Button as={Link} to={`/edit-post/${id}`}>
                                 Edit
                             </Button>
 
-                            <Button floated='right'
+                            <Button floated=''
                                     icon='trash'
                                     onClick={this.props.onDeletePost}
                             />
@@ -71,6 +82,7 @@ PostItemDetail.propTypes = {
     voteScore: PropTypes.number.isRequired,
     onUpVote: PropTypes.func.isRequired,
     onDownVote: PropTypes.func.isRequired,
-    onDeletePost: PropTypes.func.isRequired
+    onDeletePost: PropTypes.func.isRequired,
+    commentsCount: PropTypes.number.isRequired
 }
 

@@ -38,7 +38,7 @@ class PostList extends Component {
     }
 
     render(){
-        const { posts } = this.props
+        const { posts, comments } = this.props
         return(
             <div>
                 {posts.length > 0 ? (
@@ -62,6 +62,7 @@ class PostList extends Component {
                                           onUpVote={() => this.handleUpVote(post.id)}
                                           onDownVote={() => this.handleDownVote(post.id)}
                                           onDeletePost={() => this.handleDeletePost(post.id)}
+                                          commentsCount={comments.filter(comment => (comment.parentId === post.id) && (!comment.deleted)).length}
                                 />
                             ))}
                         </Item.Group>
@@ -80,7 +81,8 @@ PostList.propTypes = {
     posts: PropTypes.array.isRequired,
 }
 
-const mapStateToProps = ({ sortType }, props) => ({
+const mapStateToProps = ({ comments, sortType }, props) => ({
+    comments,
     sortType
 })
 

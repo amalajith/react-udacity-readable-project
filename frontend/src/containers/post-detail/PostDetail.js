@@ -124,6 +124,7 @@ class PostDetail extends Component {
                                                         onUpVote={() => this.handleUpVote(post.id)}
                                                         onDownVote={() => this.handleDownVote(post.id)}
                                                         onDeletePost={() => this.handleDeletePost(post.id)}
+                                                        commentsCount={postComments.filter(comment => (comment.parentId === post.id) && (!comment.deleted)).length}
                                         />
 
                                         <Divider/>

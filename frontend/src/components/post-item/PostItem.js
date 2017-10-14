@@ -7,7 +7,7 @@ import { Item, Label, Button, Icon, Divider} from 'semantic-ui-react'
 export default class PostItem extends Component {
     render(){
 
-        const { id, category, author, title, body, voteScore, timestamp } = this.props
+        const { id, category, author, title, body, voteScore, timestamp, commentsCount } = this.props
 
         return(
             <Item className='post-item'>
@@ -24,18 +24,28 @@ export default class PostItem extends Component {
                     </Item.Description>
                     <Item.Extra>
                         <Button
+                            floated='left'
                             content='Vote'
                             icon='heart'
                             label={{as: 'a', basic: true, content: voteScore}}
                             labelPosition='right'
                         />
+                        <Button
+                            floated='right'
+                            content='Comments'
+                            icon='comments'
+                            label={{as: 'a', basic: true, content: commentsCount}}
+                            labelPosition='right'
+                        />
+                    </Item.Extra>
+                    <Item.Extra>
                         <Button as={Link} to={`/edit-post/${id}`}>
                             Edit
                         </Button>
 
                         <Button
-                                icon='trash'
-                                onClick={this.props.onDeletePost}
+                            icon='trash'
+                            onClick={this.props.onDeletePost}
                         />
 
                         <Button negative
@@ -70,5 +80,6 @@ PostItem.propTypes = {
     timestamp: PropTypes.number.isRequired,
     onUpVote: PropTypes.func.isRequired,
     onDownVote: PropTypes.func.isRequired,
-    onDeletePost: PropTypes.func.isRequired
+    onDeletePost: PropTypes.func.isRequired,
+    commentsCount: PropTypes.number.isRequired
 }
