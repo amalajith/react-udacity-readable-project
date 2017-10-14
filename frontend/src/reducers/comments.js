@@ -5,7 +5,10 @@ const initialCommentsState = []
 function comments(state = initialCommentsState, action){
     switch(action.type){
         case GET_COMMENTS:
-            return action.comments
+            return [
+                ...state,
+                ...action.comments
+            ]
         case ADD_COMMENT:
             return [
                 ...state,

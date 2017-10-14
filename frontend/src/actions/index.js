@@ -39,6 +39,7 @@ export const getPostsFromApi = () => dispatch => {
             if(res.status === 200){
                 const posts = res.data
                 dispatch(getPostsSuccess(posts))
+                posts.map(post => dispatch(getCommentsFromApi(post.id)))
             }
         })
 }
