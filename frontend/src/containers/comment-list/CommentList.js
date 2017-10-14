@@ -108,7 +108,7 @@ class CommentList extends Component {
     }
 }
 
-const mapStateToProps = ({  }) => ({
+const mapStateToProps = ( ) => ({
 
 })
 

@@ -6,7 +6,6 @@ import PageHeader from '../../components/page-header/PageHeader'
 import PostItemDetail from "../../components/post-item-detail/PostItemDetail"
 import {
     deletePostFromApi,
-    getCommentsFromApi,
     postDownVoteToApi,
     postUpVoteToApi,
     addCommentToApi
