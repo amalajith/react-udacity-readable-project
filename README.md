@@ -34,13 +34,8 @@ The directory structure inside `src` folder is
 ```
 src/
     actions -> All the action constants and action creator are here.
-    components -> (Has all the individual components)
-        common  -> (Reusable components like post-item, post-form, post-detail etc)
-        home -> (Landing page, this show all the posts and categories without filter)
-        post-create  -> (Page for creating a new post /create-post)
-        post-detail  -> (Post view detail /posts/:postId)
-        post-edit -> Edit form editing a post /edit-post/:postId
-        posts -> Listing of the posts based on the category /:category/posts
+    components -> Presentational components
+    container -> Components aware of redux state
     reducers -> All the redux reducers
     utils -> Api paths and base urls
     App.css
