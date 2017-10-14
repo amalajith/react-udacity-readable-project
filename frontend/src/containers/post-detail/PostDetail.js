@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Redirect, Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Grid , Button, Icon, Divider } from 'semantic-ui-react'
+import { Container, Grid , Button, Icon, Divider, Message } from 'semantic-ui-react'
 import PageHeader from '../../components/page-header/PageHeader'
 import PostItemDetail from "../../components/post-item-detail/PostItemDetail"
 import {
@@ -91,7 +91,14 @@ class PostDetail extends Component {
         return(
             <div>
                 {!post ? (
-                    <Redirect to='/'/>
+                    <div>
+                        <PageHeader/>
+                        <Container>
+                            <Message info>
+                                404 Not found
+                            </Message>
+                        </Container>
+                    </div>
                 ) : (
                     <div>
                         <PageHeader/>

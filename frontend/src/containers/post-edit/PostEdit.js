@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Redirect, Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Container, Grid, Button, Icon, Divider} from 'semantic-ui-react'
 import PostForm from "../../components/post-form/PostForm"
@@ -89,7 +89,9 @@ class PostEdit extends Component {
         return (
             <div>
                 {categories.length === 0 ? (
-                    <Redirect to='/'/>
+                    <div>
+                        Please wait ...
+                    </div>
                 ) : (
                     <div>
                         <PageHeader/>
