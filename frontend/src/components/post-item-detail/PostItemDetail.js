@@ -15,7 +15,9 @@ export default class PostItemDetail extends Component {
                         <Item.Header as='h1'>
                             {title}
                         </Item.Header>
-                        <Item.Meta>By {author} on {moment(timestamp).format("DD-MM-YYYY h:mm:ss")} in <Label>{category}</Label></Item.Meta>
+                        <Item.Meta>Author: {author} </Item.Meta>
+                        <Item.Meta>Posted on {moment(timestamp).format("DD-MM-YYYY h:mm:ss")}</Item.Meta>
+                        <Item.Meta>Category: <Label>{category}</Label></Item.Meta>
                         <Divider />
                         <Item.Description>
                             {body}
