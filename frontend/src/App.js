@@ -39,10 +39,11 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = ({ categories, posts, sortType}) => ({
+const mapStateToProps = ({ categories, posts, sortType, comments}) => ({
     categories,
     posts,
-    sortType
+    sortType,
+    comments
 })
 
 export default withRouter(connect(mapStateToProps)(App));

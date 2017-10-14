@@ -128,6 +128,7 @@ export const deletePostFromApi = (postId) => dispatch => {
             const post = res.data
             dispatch(postDeleteSuccess(post))
         })
+    return Promise.resolve()
 }
 
 export const getComments = (comments) => {

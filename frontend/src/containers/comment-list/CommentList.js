@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import CommentItem from "../../components/comment-item/CommentItem"
 import * as CommentListAPI from './CommentListAPI'
 import {commentDeleteSuccess, commentEditSuccess} from "../../actions/index"
@@ -107,8 +108,12 @@ class CommentList extends Component {
     }
 }
 
-const mapStateToProps = ({ comments }) => ({
-    comments
+const mapStateToProps = ({  }) => ({
+
 })
+
+CommentList.propTypes = {
+    comments: PropTypes.array.isRequired,
+}
 
 export default connect(mapStateToProps)(CommentList)

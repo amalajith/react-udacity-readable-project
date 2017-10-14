@@ -29,10 +29,6 @@ class PostDetail extends Component {
         }
     }
 
-    componentDidMount() {
-        const postId = this.props.match.params.postId
-        this.props.dispatch(getCommentsFromApi(postId))
-    }
 
     handleInputChange = (e,data) => {
         const name = data.name;
@@ -61,7 +57,7 @@ class PostDetail extends Component {
 
     handleDeletePost = (postId) => {
         this.props.dispatch(deletePostFromApi(postId))
-        this.props.handlePostDeleteSuccessModalOpen()
+            .then(() => this.handlePostDeleteSuccessModalOpen())
     }
 
     handlePostDeleteSuccessModalOpen = () => {
@@ -84,8 +80,12 @@ class PostDetail extends Component {
 
     render(){
         const postId = this.props.match.params.postId
-        const { posts } = this.props
+        const { posts, comments } = this.props
         const post = posts.filter(post => (post.id === postId && !post.deleted))[0]
+        let postComments = []
+        if(post){
+             postComments = comments.filter(comment => comment.parentId === post.id)
+        }
         const { body, author } = this.state.comment
         const { postDeleteSuccessModal } = this.state
 
@@ -128,7 +128,7 @@ class PostDetail extends Component {
 
                                         <Divider/>
 
-                                        <CommentList/>
+                                        <CommentList comments={postComments}/>
 
                                         <Divider/>
 
