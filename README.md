@@ -52,3 +52,6 @@ Have used React semantic UI for layouts and UI
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+## License
+MIT license
