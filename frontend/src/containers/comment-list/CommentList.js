@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import CommentItem from "../comment-item/CommentItem"
+import CommentItem from "../../components/comment-item/CommentItem"
 import * as CommentListAPI from './CommentListAPI'
-import {commentDeleteSuccess, commentEditSuccess} from "../../../actions/index"
-import CommentEditFormModal from "../comment-edit-form-modal/CommentEditFormModal"
+import {commentDeleteSuccess, commentEditSuccess} from "../../actions/index"
+import CommentEditFormModal from "../../components/comment-edit-form-modal/CommentEditFormModal"
 
 class CommentList extends Component {
 

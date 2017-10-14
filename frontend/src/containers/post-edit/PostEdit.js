@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Container, Grid, Button, Icon, Divider} from 'semantic-ui-react'
-import PostForm from "../common/post-form/PostForm"
-import PageHeader from '../common/page-header/PageHeader'
+import PostForm from "../../components/post-form/PostForm"
+import PageHeader from '../../components/page-header/PageHeader'
 import * as PostEditAPI from './PostEditAPI'
 import {postEditSuccess} from "../../actions/index"
-import ModalSuccess from "../common/modal-success/ModalSuccess"
+import ModalSuccess from "../../components/modal-success/ModalSuccess"
 
 class PostEdit extends Component {
 

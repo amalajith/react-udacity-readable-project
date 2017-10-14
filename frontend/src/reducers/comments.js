@@ -1,4 +1,4 @@
-import {ADD_COMMENT, COMMENT_DELETE_SUCCESS, COMMENT_EDIT_SUCCESS, GET_COMMENTS} from "../actions/index"
+import {ADD_COMMENT, COMMENT_DELETE_SUCCESS, COMMENT_EDIT_SUCCESS, GET_COMMENTS} from "../actions/types"
 
 const initialCommentsState = []
 

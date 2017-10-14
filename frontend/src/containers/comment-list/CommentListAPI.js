@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {BASE_URL} from "../../../utils/index"
+import {BASE_URL} from "../../utils/index"
 
 export const deleteComment = (commentId) => {
     return axios.delete(`${BASE_URL}/comments/${commentId}`)

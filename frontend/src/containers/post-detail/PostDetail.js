@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Container, Grid , Button, Icon, Divider } from 'semantic-ui-react'
-import PageHeader from '../common/page-header/PageHeader'
-import PostItemDetail from "../common/post-item-detail/PostItemDetail"
-import * as PostDetailAPI from './PostDetailAPI'
-import {addComment, getComments, postDeleteSuccess, postDownVoteSuccess, postUpVoteSuccess} from "../../actions/index"
-import CommentForm from "../common/comment-form/CommentForm"
-import CommentList from "../common/comment-list/CommentList"
-import ModalSuccess from "../common/modal-success/ModalSuccess"
+import PageHeader from '../../components/page-header/PageHeader'
+import PostItemDetail from "../../components/post-item-detail/PostItemDetail"
+import {
+    deletePostFromApi,
+    getCommentsFromApi,
+    postDownVoteToApi,
+    postUpVoteToApi,
+    addCommentToApi
+} from "../../actions/index"
+import CommentForm from "../../components/comment-form/CommentForm"
+import CommentList from "../comment-list/CommentList"
+import ModalSuccess from "../../components/modal-success/ModalSuccess"
 
 class PostDetail extends Component {
 
@@ -26,13 +31,7 @@ class PostDetail extends Component {
 
     componentDidMount() {
         const postId = this.props.match.params.postId
-        PostDetailAPI.getComments(postId)
-            .then(res=> {
-                if(res.status === 200){
-                    const comments = res.data
-                    this.props.dispatch(getComments(comments))
-                }
-            })
+        this.props.dispatch(getCommentsFromApi(postId))
     }
 
     handleInputChange = (e,data) => {
@@ -49,50 +48,20 @@ class PostDetail extends Component {
     handleCommentSubmit = () => {
         const postId = this.props.match.params.postId
         const { body, author } = this.state.comment
-        PostDetailAPI.addComment(postId, body, author)
-            .then(res => {
-                if(res.status === 200){
-                    const comment  = res.data
-                    this.props.dispatch(addComment(comment))
-                    this.setState({
-                        comment: {
-                            body: '', author: ''
-                        }
-                    })
-                }
-            })
+        this.props.dispatch(addCommentToApi(postId,body,author))
     }
 
-    handleUpVote = () => {
-        const postId = this.props.match.params.postId
-        PostDetailAPI.upVotePost(postId)
-            .then(res => {
-                if(res.status === 200){
-                    const post = res.data
-                    this.props.dispatch(postUpVoteSuccess(post))
-                }
-            })
+    handleUpVote = (postId) => {
+        this.props.dispatch(postUpVoteToApi(postId))
     }
 
-    handleDownVote = () => {
-        const postId = this.props.match.params.postId
-        PostDetailAPI.downVotePost(postId)
-            .then(res => {
-                if(res.status === 200){
-                    const post = res.data
-                    this.props.dispatch(postDownVoteSuccess(post))
-                }
-            })
+    handleDownVote = (postId) => {
+        this.props.dispatch(postDownVoteToApi(postId))
     }
 
-    handleDeletePost = () => {
-        const postId = this.props.match.params.postId
-        PostDetailAPI.deletePost(postId)
-            .then(res => {
-                const post = res.data
-                this.props.dispatch(postDeleteSuccess(post))
-                this.handlePostDeleteSuccessModalOpen()
-            })
+    handleDeletePost = (postId) => {
+        this.props.dispatch(deletePostFromApi(postId))
+        this.props.handlePostDeleteSuccessModalOpen()
     }
 
     handlePostDeleteSuccessModalOpen = () => {
@@ -152,9 +121,9 @@ class PostDetail extends Component {
                                                         body={post.body}
                                                         voteScore={post.voteScore}
                                                         timestamp={post.timestamp}
-                                                        onUpVote={this.handleUpVote}
-                                                        onDownVote={this.handleDownVote}
-                                                        onDeletePost={this.handleDeletePost}
+                                                        onUpVote={() => this.handleUpVote(post.id)}
+                                                        onDownVote={() => this.handleDownVote(post.id)}
+                                                        onDeletePost={() => this.handleDeletePost(post.id)}
                                         />
 
                                         <Divider/>

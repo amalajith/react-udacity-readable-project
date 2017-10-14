@@ -1,14 +1,14 @@
 import {
-    GET_POSTS, POST_CREATE_SUCCESS, POST_DELETE_SUCCESS, POST_DOWN_VOTE_SUCCESS, POST_EDIT_SUCCESS,
+    GET_POSTS_SUCCESS, POST_CREATE_SUCCESS, POST_DELETE_SUCCESS, POST_DOWN_VOTE_SUCCESS, POST_EDIT_SUCCESS,
     POST_UP_VOTE_SUCCESS, SORT_POSTS_TIME,
     SORT_POSTS_VOTESCORE
-} from "../actions/index"
+} from "../actions/types"
 
 const initialPostsState = []
 
 function posts(state = initialPostsState, action){
     switch(action.type){
-        case GET_POSTS:
+        case GET_POSTS_SUCCESS:
             return action.posts
         case POST_CREATE_SUCCESS:
             return [

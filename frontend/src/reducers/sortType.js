@@ -1,4 +1,4 @@
-import {SORT_POSTS_TIME, SORT_POSTS_VOTESCORE} from "../actions/index"
+import {SORT_POSTS_TIME, SORT_POSTS_VOTESCORE} from "../actions/types"
 
 const currentSort = 'vote'
 

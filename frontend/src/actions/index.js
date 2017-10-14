@@ -1,23 +1,48 @@
-export const GET_CATEGORIES = 'GET_CATEGORIES'
-export const POST_CREATE_SUCCESS = 'POST_CREATE_SUCCESS'
-export const POST_EDIT_SUCCESS = 'POST_EDIT_SUCCESS'
-export const GET_POSTS = 'GET_POSTS'
-export const SORT_POSTS_TIME = 'SORT_POSTS_TIME'
-export const SORT_POSTS_VOTESCORE = 'SORT_POSTS_VOTESCORE'
-export const POST_UP_VOTE_SUCCESS = 'POST_UP_VOTE_SUCCESS'
-export const POST_DOWN_VOTE_SUCCESS = 'POST_DOWN_VOTE_SUCCESS'
-export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
-export const GET_COMMENTS = 'GET_COMMENTS'
-export const ADD_COMMENT  = 'ADD_COMMENT'
-export const COMMENT_EDIT_SUCCESS = 'COMMENT_EDIT_SUCCESS'
-export const COMMENT_DELETE_SUCCESS = 'COMMENT_DELETE_SUCCESS'
+import {
+    ADD_COMMENT, COMMENT_DELETE_SUCCESS, COMMENT_EDIT_SUCCESS,
+    GET_CATEGORIES_SUCCESS, GET_COMMENTS, GET_POSTS_SUCCESS, POST_CREATE_SUCCESS, POST_DELETE_SUCCESS, POST_DOWN_VOTE_SUCCESS,
+    POST_EDIT_SUCCESS,
+    POST_UP_VOTE_SUCCESS,
+    SORT_POSTS_TIME,
+    SORT_POSTS_VOTESCORE
+} from "./types"
 
-export const getCategories = (categories) => {
+import * as API from '../utils/index'
+
+export const getCategoriesSuccess = (categories) => {
     return {
-        type: GET_CATEGORIES,
+        type: GET_CATEGORIES_SUCCESS,
         categories
     }
 }
+
+export const getCategoriesFromApi = () => dispatch => {
+    API.getCategories()
+        .then(res => {
+            if (res.status === 200) {
+                const categories = res.data.categories
+                dispatch(getCategoriesSuccess(categories))
+            }
+        })
+}
+
+export const getPostsSuccess = (posts) => {
+    return {
+        type: GET_POSTS_SUCCESS,
+        posts
+    }
+}
+
+export const getPostsFromApi = () => dispatch => {
+    API.getPosts()
+        .then(res => {
+            if(res.status === 200){
+                const posts = res.data
+                dispatch(getPostsSuccess(posts))
+            }
+        })
+}
+
 
 export const postEditSuccess = (post) => {
     return {
@@ -33,11 +58,14 @@ export const postCreateSuccess = (post) => {
     }
 }
 
-export const getPosts = (posts) => {
-    return {
-        type: GET_POSTS,
-        posts
-    }
+export const addPostToApi = ({ title, body, author, category}) => dispatch => {
+    API.createPost(title,body,author, category)
+        .then(res => {
+            if(res.status === 200){
+                const post = res.data
+                dispatch(postCreateSuccess(post))
+            }
+        })
 }
 
 export const sortPostsByTime = () => {
@@ -59,11 +87,31 @@ export const postUpVoteSuccess = (post) => {
     }
 }
 
+export const postUpVoteToApi = (postId) => dispatch => {
+    API.upVotePost(postId)
+        .then(res => {
+            if(res.status === 200){
+                const post = res.data
+                dispatch(postUpVoteSuccess(post))
+            }
+        })
+}
+
 export const postDownVoteSuccess = (post) => {
     return {
         type: POST_DOWN_VOTE_SUCCESS,
         post
     }
+}
+
+export const postDownVoteToApi = (postId) => dispatch => {
+    API.downVotePost(postId)
+        .then(res => {
+            if(res.status === 200){
+                const post = res.data
+                dispatch(postDownVoteSuccess(post))
+            }
+        })
 }
 
 export const postDeleteSuccess = (post) => {
@@ -73,11 +121,29 @@ export const postDeleteSuccess = (post) => {
     }
 }
 
+export const deletePostFromApi = (postId) => dispatch => {
+    API.deletePost(postId)
+        .then(res => {
+            const post = res.data
+            dispatch(postDeleteSuccess(post))
+        })
+}
+
 export const getComments = (comments) => {
     return {
         type: GET_COMMENTS,
         comments
     }
+}
+
+export const getCommentsFromApi = (postId) => dispatch => {
+    API.getComments(postId)
+        .then(res=> {
+            if(res.status === 200){
+                const comments = res.data
+                dispatch(getComments(comments))
+            }
+        })
 }
 
 export const addComment = (comment) => {
@@ -86,6 +152,18 @@ export const addComment = (comment) => {
         comment
     }
 }
+
+export const addCommentToApi = (postId, body, author) => dispatch => {
+    API.addComment(postId, body, author)
+        .then(res => {
+            if(res.status === 200){
+                const comment  = res.data
+                dispatch(addComment(comment))
+            }
+        })
+}
+
+
 
 export const commentEditSuccess = (comment) => {
     return {

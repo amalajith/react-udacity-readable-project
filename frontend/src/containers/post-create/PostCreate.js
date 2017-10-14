@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { Container, Grid, Button, Icon, Divider } from 'semantic-ui-react'
-import PostForm from "../common/post-form/PostForm"
-import PageHeader from '../common/page-header/PageHeader'
-import * as PostCreateAPI from './PostCreateAPI'
-import {postCreateSuccess} from "../../actions/index"
-import ModalSuccess from "../common/modal-success/ModalSuccess"
+import PostForm from "../../components/post-form/PostForm"
+import PageHeader from '../../components/page-header/PageHeader'
+import {addPostToApi} from "../../actions/index"
+import ModalSuccess from "../../components/modal-success/ModalSuccess"
 
 class PostCreate extends Component {
 
@@ -50,14 +49,9 @@ class PostCreate extends Component {
         if(!title || !body || !author || !category){
             return
         }
-        PostCreateAPI.createPost(title,body,author, category)
-            .then(res => {
-                if(res.status === 200){
-                    const post = res.data
-                    this.props.dispatch(postCreateSuccess(post))
-                    this.handlePostCreateSuccessModalOpen()
-                }
-            })
+        this.props.dispatch(addPostToApi({ title, body, author, category}))
+        this.handlePostCreateSuccessModalOpen()
+
     }
 
     handlePostCreateSuccessModalOpen = () => {
@@ -127,9 +121,10 @@ class PostCreate extends Component {
     }
 }
 
-const mapStateToProps = ({categories, posts}) => ({
+const mapStateToProps = ({categories, posts, sortType}) => ({
     categories,
-    posts
+    posts,
+    sortType
 })
 
 export default connect(mapStateToProps)(PostCreate)

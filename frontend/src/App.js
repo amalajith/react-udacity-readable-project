@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
-import Home from "./components/home/Home"
-import Posts from "./components/posts/Posts"
-import PostDetail from "./components/post-detail/PostDetail"
-import PostCreate from "./components/post-create/PostCreate"
-import PostEdit from "./components/post-edit/PostEdit"
+import Home from "./containers/home/Home"
+import Posts from "./containers/posts/Posts"
+import PostDetail from "./containers/post-detail/PostDetail"
+import PostCreate from "./containers/post-create/PostCreate"
+import PostEdit from "./containers/post-edit/PostEdit"
 
 class App extends Component {
   render() {
@@ -13,10 +13,10 @@ class App extends Component {
       <div>
           <Switch>
               <Route exact path='/' component={Home}/>
-              <Route path='/:category/posts' component={Posts} />
-              <Route path='/posts/:postId' component={PostDetail} />
               <Route path='/create-post' component={PostCreate} />
               <Route path='/edit-post/:postId' component={PostEdit}  />
+              <Route exact path='/:category' component={Posts} />
+              <Route path='/:category/:postId' component={PostDetail} />
           </Switch>
       </div>
     )
